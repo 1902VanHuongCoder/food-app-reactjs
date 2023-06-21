@@ -16,15 +16,16 @@ function AppProvider({ children }) {
   const fetchData = async (url) => {
     setLoading(true);
     try {
-      const { data } = await axios(url);
+      const { data } = await axios(url, {signal: AbortSignal.timeout(5000)});
       if (data.meals) {
         setMeals(data.meals);
         setLoading(false);
       } else {
         setMeals([]);
+        setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      console.log("error");
     }
   };
 
@@ -49,14 +50,8 @@ function AppProvider({ children }) {
       setSelectedMeal(meal);
     }
   }
-
-  function closeModal() {
-    setShowModal(false);
-  }
-
   function addMealToLikeList(idMeal) {
     let likeMeal = favorites.find((favorite) => favorite.idMeal === idMeal);
-    console.log("add running...");
     if (likeMeal) {
       removeMealFromLikeList(idMeal);
     } else {
@@ -84,7 +79,8 @@ function AppProvider({ children }) {
         showModal,
         setShowModal,
         selectedMeal,
-        setSearchTerm
+        setSearchTerm,
+        fetchRandomMeal
       }}
     >
       {children}

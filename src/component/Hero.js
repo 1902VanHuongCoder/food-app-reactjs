@@ -8,7 +8,7 @@ const Hero = () => {
           This page can teach you everything about meals!
         </h1>
         <button className="mt-2 w-fit font-bold text-[#ee4d2d] bg-white px-5 py-2 rounded-lg">
-            Details
+            <a href='https://www.youtube.com/@easyturkishrecipes'>Details</a>
         </button>
       </div>
     </div>

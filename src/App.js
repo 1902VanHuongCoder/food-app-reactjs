@@ -1,4 +1,3 @@
-import "./App.css";
 import FavoriteIndicator from "./component/FavoriteIndicator";
 import Hero from "./component/Hero";
 import Likelist from "./component/Likelist";
