@@ -2,7 +2,7 @@ import React from "react";
 import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai'
 import { useGlobalContext } from "../context";
 const List = () => {
-  const { meals, loading, favorites} = useGlobalContext();
+  const { meals, loading, favorites, addMealToLikeList, setShowModal, selectMeal} = useGlobalContext();
   console.log(meals);
   if (loading) {
     return (
@@ -26,9 +26,14 @@ const List = () => {
         {meals.map((meal, i) => {
           const {idMeal, strMealThumb: image, strMeal: title} = meal;
           return <div key={i} className="w-[200px] h-fit overflow-hidden rounded-lg hover:shadow-xl transition-shadow ease-in-out duration-300 border-slate-200 border-solid border">
-            <img src={image} alt={title} className="w-full object-fit"/>
+            <img src={image} alt={title} className="w-full object-fit" onClick={() => {
+              setShowModal(true);
+              selectMeal(idMeal, false);
+            }}/>
             <div className="flex justify-between p-2 items-center"> <h3 >{title}</h3> 
-            <span>{ favorites.find((favorite) => favorite.idMeal === idMeal) ? <AiFillHeart /> : <AiOutlineHeart />}</span>
+            <span onClick={
+              () => {addMealToLikeList(idMeal)}
+            }>{ favorites.find((favorite) => favorite.idMeal === idMeal) ? <AiFillHeart /> : <AiOutlineHeart />}</span>
             </div>
           </div>;
         })}

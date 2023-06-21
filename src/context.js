@@ -56,9 +56,9 @@ function AppProvider({ children }) {
 
   function addMealToLikeList(idMeal) {
     let likeMeal = favorites.find((favorite) => favorite.idMeal === idMeal);
+    console.log("add running...");
     if (likeMeal) {
-      //remove this meal out of like list
-      console.log("1");
+      removeMealFromLikeList(idMeal);
     } else {
       let meal = meals.find((meal) => meal.idMeal === idMeal);
       setFavorites([...favorites, meal]);
@@ -66,13 +66,33 @@ function AppProvider({ children }) {
   }
 
   function removeMealFromLikeList(idMeal) {
-    let meal = favorites.find((favorite) => favorite.idMeal !== idMeal);
-    setFavorites([...favorites, meal]);
+    let meal = favorites.filter((favorite) => favorite.idMeal !== idMeal);
+    setFavorites(meal);
   }
-  return <AppContext.Provider value={{meals,loading, favorites}}>{children}</AppContext.Provider>;
+
+  return (
+    <AppContext.Provider
+      value={{
+        meals,
+        loading,
+        favorites,
+        setShowFavorite,
+        showFavorite,
+        addMealToLikeList,
+        removeMealFromLikeList,
+        selectMeal,
+        showModal,
+        setShowModal,
+        selectedMeal,
+        setSearchTerm
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 }
 
 export const useGlobalContext = () => {
-    return useContext(AppContext);
-}
+  return useContext(AppContext);
+};
 export default AppProvider;
