@@ -14,7 +14,7 @@ function AppProvider({ children }) {
   const [favorites, setFavorites] = useState([]);
   const [showFavorite, setShowFavorite] = useState(false);
   const fetchData = async (url) => {
-    setLoading(true);
+    setLoading(true); 
     try {
       const { data } = await axios(url, {signal: AbortSignal.timeout(5000)});
       if (data.meals) {
